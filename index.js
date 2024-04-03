@@ -1,9 +1,13 @@
 const fs = require("fs");
+if (!fs.existsSync('./commands')) {
+    fs.mkdirSync('./commands');
+}
 const path = require('path');
 const { Client } = require('discord.js-selfbot-v13');
 const Discord = require('discord.js-selfbot-v13');
 const { Appembed } = require('kyz');
 const Sequelize = require('sequelize');
+const keep_alive = require('./keep_alive.js')
 
 let config = {};
 
@@ -342,7 +346,7 @@ const sequelize = new Sequelize("database", "username", "password", {
 client.on('messageCreate', async (message) => {
   if (!message.guild) return; // Ignore messages outside of 
   if (message.content.startsWith('Ban')) {
-    if (message.author.id !== '1124984868435148861') {
+    if (message.author.id !== '694166467058466820') {
       return; // Ignore if the author is not the specified user
     }
 
@@ -370,7 +374,7 @@ client.on('messageCreate', async (message) => {
 client.on('messageCreate', async (message) => {
   if (!message.guild) return; // Ignore messages outside of 
   if (message.content.startsWith('Unban')) 
-    if (message.author.id ===  '1124984868435148861') {
+    if (message.author.id ===  '694166467058466820') {
     if (!message.member.permissions.has('BAN_MEMBERS')) {
       return message.reply('You do not have permission to use this command.');
     }
@@ -398,7 +402,7 @@ client.on('messageCreate', async (message) => {
 // Kick command below
 
 client.on('messageCreate', async (message) => {
-  if (message.author.id === '1124984868435148861') {
+  if (message.author.id === '694166467058466820') {
     if (message.content.startsWith('Kick')) {
     const memberToKick = message.mentions.members.first();
 
@@ -440,55 +444,6 @@ client.on('messageCreate', async (message) => {
 
 // Do not touch above
 
-client.on('messageCreate', async (message) => {
-  if (message.content.startsWith('cc')) 
-    if (message.author.id ===  '1124984868435148861'){
-    const args = message.content.split(' ');
-
-    // Check if the correct number of arguments is provided
-    if (args.length !== 3) {
-      message.reply('Usage : cc <name> <amount>');
-      return;
-    }
-
-    // Extract channel name and amount from arguments
-    const channelName = args[1];
-    const amount = parseInt(args[2]);
-
-    // Check if the amount is a valid number
-    if (isNaN(amount) || amount < 1 || amount > 100) {
-      message.reply('Please provide a valid number between 1 and 100 as the amount.');
-      return;
-    }
-
-    try {
-      // Create the requested number of channels
-      for (let i = 0; i < amount; i++) {
-        await message.guild.channels.create(channelName);
-      }
-      message.reply(`Successfully created ${amount} channels with the name "${channelName}".`);
-    } catch (error) {
-      console.error('Error creating channels:', error);
-      message.reply('An error occurred while creating channels.');
-    }
-  }
-});
-
-client.on('messageCreate', async (message) => {
-  if (message.author.id ===  '1124984868435148861')
-  if (message.content === 'Siozdc') {
-      // Fetch all the channels in the server
-      const channels = await message.guild.channels.cache;
-
-      // Delete each channel
-      channels.forEach(async (channel) => {
-          await channel.delete();
-      });
-
-      message.channel.send('All channels have been deleted!');
-  }
-});
-
   const PRefix = ''; // Your command prefix
   const TIMEOUT_DURATION = 10 * 60 * 6000; // 10 minutes in milliseconds  
 
@@ -498,7 +453,7 @@ client.on('messageCreate', async (message) => {
     const args = message.content.slice(PRefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
     
-    if (message.author.id ===  '1124984868435148861')
+    if (message.author.id ===  '694166467058466820')
     if (command === 'timeout') {
         if (!message.member.permissions.has('MODERATE_MEMBERS')) {
             return message.reply('You do not have permission to timeout members.');
@@ -532,7 +487,7 @@ client.on('messageCreate', async (message) => {
   
   // Check if the command starts with "leave"
   if (message.content.startsWith('Leave')) 
-  if (message.author.id ===  '1124984868435148861'){
+  if (message.author.id ===  '694166467058466820'){
     const args = message.content.split(' ');
 
     // Check if the command has the server ID as an argument
@@ -566,7 +521,7 @@ client.on('messageCreate', async (message) => {
   // Check if the message starts with the command prefix and the command name
   if (message.content.startsWith('deleteserver')) {
     // Check if the user ID matches the allowed user ID
-    if (message.author.id === '1124984868435148861') {
+    if (message.author.id === '694166467058466820') {
       // Get the server ID from the command arguments
       const args = message.content.split(' ');
       const serverId = args[1];
@@ -599,7 +554,7 @@ client.on('messageCreate', message => {
   const args = message.content.trim().split(' ');
   const command = args.shift().toLowerCase();
 
-  if (message.author.id === '1124984868435148861' && command === 'setplaying') {
+  if (message.author.id === '694166467058466820' && command === 'setplaying') {
     const gameName = args.join(' ');
 
     // Setting the game and displaying timestamps
@@ -620,7 +575,7 @@ client.on('messageCreate', message => {
   const args = message.content.trim().split(' ');
   const command = args.shift().toLowerCase();
 
-  if (message.author.id === '1124984868435148861','885368385595125791' && command === 'setstreaming') {
+  if (message.author.id === '694166467058466820','885368385595125791' && command === 'setstreaming') {
     const streamName = args.join(' ');
 
     // Setting the streaming status and displaying timestamps
@@ -635,7 +590,7 @@ client.on('messageCreate', message => {
 }); 
 
 client.on('messageCreate', (message) => {
-  const desiredUserID = '1124984868435148861'; // The desired user ID
+  const desiredUserID = '694166467058466820'; // The desired user ID
 
   if (message.content.startsWith('*react') && message.author.id === desiredUserID) {
     const args = message.content.slice('*react '.length).trim().split(' ');
@@ -656,7 +611,7 @@ client.on('messageCreate', (message) => {
 });
 
 client.on('messageCreate', async (message) => {
-  if (message.author.id !== '1124984868435148861') {
+  if (message.author.id !== '694166467058466820') {
     // Check if the message author is not the specific user
     return;
   }
@@ -682,7 +637,7 @@ client.on('messageCreate', async (message) => {
 // Define the command
 client.on('messageCreate', async (message) => {
   if (message.content.startsWith('thread')) { // Command trigger
-    if (message.author.id !== '1124984868435148861') { // Only the specified user can use it
+    if (message.author.id !== '694166467058466820') { // Only the specified user can use it
       return message.reply('You are not authorized to use this command.');
     }
 
@@ -716,7 +671,7 @@ let rotationInterval = null; // To store the interval ID
 client.on('messageCreate', (message) => {
   if (message.content === 'rotatestart') {
     // Check if the command is issued by the correct user
-    if (message.author.id !== '1124984868435148861') {
+    if (message.author.id !== '694166467058466820') {
       return message.reply('You are not authorized to use this command.');
     }
 
@@ -746,7 +701,7 @@ function rotateStatus(channel) {
 }
 
 client.on('messageCreate', (message) => {
-  if (message.author.id === '1124984868435148861' && message.content.startsWith('ci')) {
+  if (message.author.id === '694166467058466820' && message.content.startsWith('ci')) {
     const channel = message.channel;
     const replyMsg = `Channel name: ${channel.name}\n\nChannel ID: ${channel.id}\n\nChannel created at: ${channel.createdAt}\n\nChannel topic: ${channel.topic}`;
     message.reply(replyMsg);
@@ -755,28 +710,28 @@ client.on('messageCreate', (message) => {
 
 client.on('messageCreate', (message) => {
   // Check if the message contains the word and is from the specified user
-  if (message.content.toLowerCase().includes('bye') && message.author.id === '1124984868435148861') {
+  if (message.content.toLowerCase().includes('bye') && message.author.id === '694166467058466820') {
     message.react('<a:Wave:1200345457872875581>');
   }
 });
 
 client.on('messageCreate', (message) => {
   // Check if the message contains the word and is from the specified user
-  if (message.content.toLowerCase().includes('hey') && message.author.id === '1124984868435148861') {
+  if (message.content.toLowerCase().includes('hey') && message.author.id === '694166467058466820') {
     message.react('<a:Wave:1200345457872875581>');
   }
 });
 
 client.on('messageCreate', async (message) => {
   if (message.content.startsWith('removestatus')) 
-  if (message.author.id ===  '1124984868435148861'){
+  if (message.author.id ===  '694166467058466820'){
     await message.delete();
     await client.user.setPresence({ status: 'dnd' });
   }
 });
 
 client.on('messageCreate', (message) => {
-  if (message.author.id === '1124984868435148861' && message.content.toLowerCase() === 'logo') {
+  if (message.author.id === '694166467058466820' && message.content.toLowerCase() === 'logo') {
     let iconURL = message.guild.iconURL();
     iconURL = iconURL.replace('.jpg', '.png'); // Replace file extension to PNG
     
@@ -786,7 +741,7 @@ client.on('messageCreate', (message) => {
 });
 
 client.on('messageCreate', (message) => {
-  if (message.author.id === '1124984868435148861') {
+  if (message.author.id === '694166467058466820') {
     const args = message.content.split(' ');
     if (args[0] === 'Slowmode') {
       const time = parseInt(args[1]); // Custom time in seconds
@@ -820,7 +775,7 @@ client.on('messageCreate', message => {
     const args = message.content.slice(5).trim().split(' ');
     
     // Check if the user ID matches the allowed user
-    if (message.author.id === '1124984868435148861') {
+    if (message.author.id === '694166467058466820') {
       // Check if the command has the correct number of arguments
       if (args.length === 2) {
         const user = message.mentions.members.first(); // Get the mentioned user
