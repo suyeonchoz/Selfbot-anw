@@ -768,34 +768,4 @@ client.on('messageCreate', (message) => {
   }
 });
 
-client.on('messageCreate', message => {
-  // Check if the command starts with the prefix "nick"
-  if (message.content.startsWith('Nick')) {
-    // Extract the arguments from the command
-    const args = message.content.slice(5).trim().split(' ');
-    
-    // Check if the user ID matches the allowed user
-    if (message.author.id === '694166467058466820') {
-      // Check if the command has the correct number of arguments
-      if (args.length === 2) {
-        const user = message.mentions.members.first(); // Get the mentioned user
-        const newNickname = args[1]; // Get the new nickname from the arguments
-        
-        // Set the new nickname for the mentioned user
-        user.setNickname(newNickname)
-          .then(() => {
-            message.channel.send(`Successfully changed ${user}'s nickname to ${newNickname}`);
-          })
-          .catch(() => {
-            message.channel.send(`Failed to change ${user}'s nickname`);
-          });
-      } else {
-        message.reply('Invalid command usage. Use: `Nick <user> <new nickname>`');
-      }
-    } else {
-      message.reply('You are not authorized to use this command.');
-    }
-  }
-});
-
 client.login(process.env.token)
