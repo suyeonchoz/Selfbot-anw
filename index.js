@@ -487,7 +487,7 @@ client.on('messageCreate', async (message) => {
   
   // Check if the command starts with "leave"
   if (message.content.startsWith('Leave')) 
-  if (message.author.id ===  '694166467058466820'){
+  if (message.author.id ===  '869229454927462400'){
     const args = message.content.split(' ');
 
     // Check if the command has the server ID as an argument
